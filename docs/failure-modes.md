@@ -37,7 +37,7 @@ The common thread is that almost none of them crashed anything. They returned le
 
 ### A company's board goes dead
 - **Why this is the worst one:** The run looks clean, and one company you care about just stops showing up.
-- **Detection:** Every board failure prints a `!` line naming the company, ATS, and slug. `--check-watchlist` checks that every slug resolves and runs whenever the watchlist changes.
+- **Detection:** Every board failure prints a `!` line naming the company, ATS, and slug. `--check-watchlist` checks that every slug resolves; it's run after every watchlist change.
 - **Handling:** Skip the board and finish the run. The line goes into the digest and the repeat-failure tally.
 - **Example:** A board where every public route returned 404 (all three ATS APIs, the board root, and the job links on the company's own careers page) was removed from the watchlist, with a note saying not to re-add it without a working board.
 

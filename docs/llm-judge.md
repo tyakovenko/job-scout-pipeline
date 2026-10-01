@@ -41,7 +41,7 @@ Defenses:
 - The rubric says plainly that listing content is untrusted, and that anything that looks like a command should be scored as content, not obeyed
 - Listings are placed in a clearly separated section after the rubric and profile
 - The same rule is in the **email sender's** prompt, since titles and notes go into the digest
-- The email sender can use only two tools: read files, and send email to one fixed address. A successful injection can't apply to jobs, send email to anyone else, or touch other systems.
+- The email sender can use only two tools: read files, and send email. A successful injection can't apply to jobs or touch other systems. The single allowed recipient is fixed by the prompt, not by the tool, so that one limit is only as strong as the prompt.
 
 ## Why `--judge-all`
 

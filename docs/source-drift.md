@@ -39,7 +39,11 @@ Location is the most error-prone field. The order of the checks matters, and eac
 
 ## Coverage strategy: grow the company list, not the number of boards
 
-The first run made it clear: **every top-scoring (fit 5) match came from the curated company watchlist**, and none came from generic boards. Coverage grows by finding *companies*, through a separate weekly discovery step that collects ATS board URLs from curated startup job sites (so the slugs are already confirmed working, not guessed). Adding more generic job boards doesn't help.
+The first run made it clear: **every top-scoring (fit 5) match came from the curated company watchlist**, and none came from generic boards. Coverage grows by finding *companies*, through a separate discovery step that proposes boards for approval. Adding more generic job boards doesn't help.
+
+### Matching a company to its board
+
+The watchlist grew from 97 to 322 boards, mostly by matching YC companies to their ATS boards, and the matching step is where the errors hide. Slugs are guessed from the company name, and a guessed slug often resolves to a real board belonging to someone else: `ashby/hopper` is a live board with 27 jobs, but not the Hopper in the YC directory. A board that answers is therefore not accepted on its own. Greenhouse boards report a company name, and it must match. Ashby and Lever boards report none, so they're kept only when the company's own website links to that exact board. Anything else is listed as `UNCONFIRMED` and never written to the watchlist.
 
 ## Sources evaluated and rejected
 
@@ -53,7 +57,7 @@ The first run made it clear: **every top-scoring (fit 5) match came from the cur
 | Remotive | Low yield | 15 per category → 2 usable |
 | Jobicy | Empty | 0 results on the relevant tag |
 | VC portfolio boards (consider.com-backed) | Gated | Every API path returns **403**, not 404, so the data exists but access is blocked on purpose. Covered through another source that has the same portfolio. |
-| YC company directory | Not watchlistable | 0 of 48 matching companies had a reachable ATS board (most are ≤5 people with custom careers pages). Used as an outreach list instead. |
+| YC company directory (first attempt) | Low yield, superseded | 0 of 48 tag-matched companies had a reachable ATS board (most are ≤5 people with custom careers pages). A later pass over the full directory, with website confirmation, is what grew the watchlist (see above). |
 
 **Pattern:** Generic remote boards are full of data-annotation and "AI trainer" gigs, and the same vendor shows up across three boards. They cost judge calls and triage time and add almost nothing.
 

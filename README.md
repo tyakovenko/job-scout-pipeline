@@ -50,7 +50,7 @@ flowchart LR
 |---|---|---|
 | Laptop wakes before wifi is up | Connectivity probe against a real ATS host | Retries for about 5 minutes, then aborts loudly. A ConnectionError on every board is never reported as "0 new roles". |
 | A company's board slug dies | Per-board `!` warning line, plus a `--check-watchlist` verifier | Skips that board and keeps going. The warning lands in the digest and in a running count of repeat failures. |
-| Aggregator rate-limits mid-scan | Exception during paging | Keeps the partial results and logs `TRUNCATED at offset N`, so a cut-short scan never looks complete. |
+| Aggregator rate-limits mid-scan | Exception during paging | Keeps the partial results and logs `himalayas TRUNCATED at offset N`, so a cut-short scan never looks complete. |
 | Network outage hits ~100 boards at once | Many network errors on the same host | Logged as one `network outage: <host>` entry so the real repeat failures aren't buried. |
 | LLM judge fails or skips rows | Subprocess failure, unparseable JSON, missing indices | Rows pass through as `[UNJUDGED]`. The run exits **2 (DEGRADED)** and the digest says so at the top. |
 | Every source fails | Nothing fetched | Exits **1**, and the email becomes a failure report instead of a digest. |
@@ -68,7 +68,7 @@ Full catalog with incident notes: **[docs/failure-modes.md](docs/failure-modes.m
 | `1` | Hard failure, nothing fetched | Failure report email + critical alert |
 | `2` | **Degraded:** results exist, but some judge batches failed | Digest, with the degradation stated first |
 
-Source warnings (one board dead, one feed cut short) don't change the exit code, since the run still produced valid results. They show up through their own channel: a `SOURCE WARNINGS` block in the digest, a notification that fires even when no digest is sent, and an append-only tally of repeat failures.
+Source warnings (one board dead, one feed cut short) don't change the exit code, since the run still produced valid results. They show up through their own channel: a `SOURCE WARNINGS` block in the digest, a notification that fires even when no digest is sent, and a running tally with one row per repeat failure.
 
 ## Docs
 
